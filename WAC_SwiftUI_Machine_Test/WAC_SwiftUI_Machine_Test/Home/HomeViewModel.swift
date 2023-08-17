@@ -28,20 +28,23 @@ class ViewModel: ObservableObject {
                     let homeData = decodedData.homeData
                     
                     // Fetch Order Array
-                    self.orderArray = homeData.map { $0.type }
-                    self.homeDataModel = decodedData
-                    
-                    // Fetch Banner urls
-                    let banners = homeData.filter { $0.type == .Keys.banners }
-                    bannerURLs = banners.flatMap { $0.values.map { $0.banner_url ?? "" } }
-                    
-                    let categories = homeData.filter { $0.type == .Keys.category }
-                    let products = homeData.filter { $0.type == .Keys.products }
-                    
-                    allCategories = categories.flatMap { $0.values.map { CategoryData(id: $0.id, name: $0.name, imageURL: $0.image_url) } }
-                    
-                    allProducts = products.flatMap { $0.values.map { Products(id: $0.id, name: $0.name, image: $0.image, actualPrice: $0.actual_price, offerPrice: $0.offer_price, offer: $0.offer, isExpress: $0.is_express) } }
                     DispatchQueue.main.async {
+                        self.orderArray = homeData.map { $0.type }
+                        self.homeDataModel = decodedData
+                        
+                        
+                        
+                        // Fetch Banner urls
+                        let banners = homeData.filter { $0.type == .Keys.banners }
+                        self.bannerURLs = banners.flatMap { $0.values.map { $0.banner_url ?? "" } }
+                        
+                        let categories = homeData.filter { $0.type == .Keys.category }
+                        let products = homeData.filter { $0.type == .Keys.products }
+                        
+                        self.allCategories = categories.flatMap { $0.values.map { CategoryData(id: $0.id, name: $0.name, imageURL: $0.image_url) } }
+                        
+                        self.allProducts = products.flatMap { $0.values.map { Products(id: $0.id, name: $0.name, image: $0.image, actualPrice: $0.actual_price, offerPrice: $0.offer_price, offer: $0.offer, isExpress: $0.is_express) } }
+                        
                         completion()
                     }
                 } catch {
@@ -63,18 +66,18 @@ class ViewModel: ObservableObject {
         case .Keys.category:
             return AnyView(
                 CategoryCollectionView(viewModel: self)
-                .frame(height: 100)
+                    .frame(height: 100)
             )
         case .Keys.banners:
             return AnyView(
                 
                 BannerScrollView(viewModel : self)
                     .frame(height: 180)
-                    
+                
             )
         case .Keys.products:
             return AnyView(
-               
+                
                 ProductCollectionView(products: self.allProducts, screenWidth: screenWidth)
                     .frame(height: 330)
             )
