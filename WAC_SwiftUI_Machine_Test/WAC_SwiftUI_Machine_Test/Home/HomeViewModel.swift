@@ -76,7 +76,7 @@ class ViewModel: ObservableObject {
             return AnyView(
                
                 ProductCollectionView(products: self.allProducts, screenWidth: screenWidth)
-                    .frame(height: 300)
+                    .frame(height: 330)
             )
         default:
             return AnyView(

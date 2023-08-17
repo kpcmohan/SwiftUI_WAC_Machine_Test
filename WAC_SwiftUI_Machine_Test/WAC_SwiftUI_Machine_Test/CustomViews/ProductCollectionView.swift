@@ -16,7 +16,7 @@ struct ProductCollectionView: View {
             HStack(spacing: 8) {
                 ForEach(products, id: \.id) { productObject in
                     ProductCell(productObject: productObject)
-                        .frame(width: screenWidth / 2.3, height: 320)
+                        .frame(width: screenWidth / 2.3, height: 330)
                 }
             }
             .padding(16)
@@ -35,66 +35,32 @@ struct ProductCell: View {
     
     var body: some View {
         VStack {
-            //Spacer()
-            HStack{
-                if let offer = productObject.offer, offer > 0 {
-                    Text("\(offer)% \(String.Texts.off)")
-                        .padding(4)
-                        .background(Color.red)
-                        .font(.caption)
-                    
-                    
-                }
-                Spacer()
-                Image(systemName: String.SystemImages.heart) // Barcode scanner icon
-                    .foregroundColor(.gray)
-                    .padding(.trailing, 8)
-                
-            }
-            .padding(.top, 16)
+            OfferAndFavView(productObject: productObject)
             
-            Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: productObject.image ?? "")!))!)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 150, height: 150)
-            Spacer()
-            HStack{
-                if productObject.isExpress ?? false {
-                    Image(systemName: String.SystemImages.shippingbox)
-                        .foregroundColor(.green)
-                        .padding(.top, 2)
-                }
-                Spacer()
-            }.padding(.leading , 8)
-            HStack{
-                if let actualPrice = productObject.actualPrice, let offerPrice = productObject.offerPrice, actualPrice != offerPrice {
-                    VStack{
-                        Text(actualPrice)
-                            .foregroundColor(.gray)
-                            .strikethrough()
-                            .font(.subheadline)
-                        Text(offerPrice)
-                            .font(Font.body)
-                    }
-                } else {
-                    VStack{
-                        Text(productObject.offerPrice ?? "")
-                            .font(.headline)
-                    }
-                }
-                Spacer()
+            if let imageUrl = productObject.image,
+               let url = URL(string: imageUrl),
+               let imageData = try? Data(contentsOf: url),
+               let image = UIImage(data: imageData) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 150)
             }
-            .padding(.leading, 8)
+            
+            expressView(productObject: productObject)
+            
+            PriceView(productObject: productObject)
             Spacer()
-            HStack{
+            HStack {
                 Text(productObject.name ?? "-")
                     .font(Font.headline)
-                    .lineLimit(2)
                     
-                
                 Spacer()
             }
-            .padding([.leading,.bottom],8)
+            .padding([.leading,.bottom], 8)
+            
+           AddToCartButton()
+                .padding(.bottom, 8)
             
             
         }
@@ -106,3 +72,78 @@ struct ProductCell: View {
     }
 }
 
+
+
+struct OfferAndFavView: View {
+    var productObject : Products
+    var body: some View {
+        HStack {
+            if let offer = productObject.offer, offer > 0 {
+                Text("\(offer)% \(String.Texts.off)")
+                    .padding(4)
+                    .background(Color.red)
+                    .foregroundColor(Color.white)
+                    .font(.caption)
+            }
+            Spacer()
+            Image(systemName: String.SystemImages.heart)
+                .foregroundColor(.gray)
+                .padding(.trailing, 8)
+        }
+        .padding(.top, 16)
+    }
+}
+
+struct expressView: View {
+    var productObject : Products
+    var body: some View {
+        HStack {
+            if productObject.isExpress ?? false {
+                Image(systemName: String.SystemImages.shippingbox)
+                    .foregroundColor(.green)
+                    .padding(.top, 2)
+            }
+            Spacer()
+        }
+        .padding(.leading , 8)
+    }
+}
+
+struct PriceView: View {
+    var productObject : Products
+    var body: some View {
+        HStack {
+            if let actualPrice = productObject.actualPrice,
+               let offerPrice = productObject.offerPrice,
+               actualPrice != offerPrice {
+                VStack {
+                    Text(actualPrice)
+                        .foregroundColor(.gray)
+                        .strikethrough()
+                        .font(.subheadline)
+                    Text(offerPrice)
+                        .font(Font.body)
+                }
+            } else {
+                VStack {
+                    Text(productObject.offerPrice ?? "")
+                        .font(.headline)
+                }
+            }
+            Spacer()
+        }
+        .padding(.leading, 8)
+    }
+}
+
+struct AddToCartButton: View {
+    var body: some View {
+        Button(String.Texts.add, action: {})
+            .padding(.horizontal, 32)
+            .padding(.vertical, 4)
+            .background(Color.green)
+            .cornerRadius(5)
+            .foregroundColor(.white)
+            .font(.system(size: 14))
+    }
+}

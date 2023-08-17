@@ -17,7 +17,7 @@ extension String{
         static var offers = "Offers"
         static var cart = "Cart"
         static var account = "Account"
-        
+        static var add = "ADD"
         
     }
     
