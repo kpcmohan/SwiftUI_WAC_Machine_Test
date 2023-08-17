@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BannerScrollView: View {
     @State  var viewModel : ViewModel?
@@ -29,7 +30,7 @@ struct BannerView: View {
     
     var body: some View {
         
-        Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: bannerURL)!))!)
+        KFImage(URL(string: bannerURL))
             .resizable()
             .scaledToFit()
             .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CategoryCollectionView: View {
     @State  var viewModel : ViewModel?
@@ -27,12 +28,13 @@ struct CategoryCell: View {
     
     var body: some View {
         VStack {
-            Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: categoryObject.imageURL ?? "")!))!)
+            KFImage(URL(string: categoryObject.imageURL ?? ""))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50, height: 50)
                 .background(Color.gray.opacity(0.3))
                 .clipShape(Circle())
+                
             Text(categoryObject.name ?? "-")
                 .font(.headline)
         }

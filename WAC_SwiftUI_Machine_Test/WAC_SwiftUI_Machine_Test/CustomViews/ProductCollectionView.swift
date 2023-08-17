@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProductCollectionView: View {
     let products: [Products]
@@ -25,7 +26,7 @@ struct ProductCollectionView: View {
 }
 struct ProductCollectionView_Preview: PreviewProvider {
     static var previews: some View {
-        ProductCollectionView(products: [Products(id: 1, name: "Sony 4K Ultra HD Android Smart LED TV KD43X7500F 43", image: "https://i.ibb.co/sj39CdF/750679-01-jpg-300-Wx300-H.jpg", actualPrice: "$ 1200", offerPrice: "$ 1000", offer: 10, isExpress: true)], screenWidth: 350)
+        ProductCollectionView(products: [Products(id: 1, name: "Sony 4K Ultra HD Android Smart LED TV KD43X7500F 43", image: "https://i.ibb.co/sj39CdF/750679-01-jpg-300-ssWx300-H.jpg", actualPrice: "$ 1200", offerPrice: "$ 1000", offer: 10, isExpress: true)], screenWidth: 350)
     }
 }
 
@@ -38,13 +39,28 @@ struct ProductCell: View {
             OfferAndFavView(productObject: productObject)
             
             if let imageUrl = productObject.image,
-               let url = URL(string: imageUrl),
-               let imageData = try? Data(contentsOf: url),
-               let image = UIImage(data: imageData) {
-                Image(uiImage: image)
+               let url = URL(string: imageUrl)
+               {
+                KFImage(url)
+                        .placeholder {
+                            // Placeholder image
+                            Image(systemName: "photo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 120, height: 120)
+                                .foregroundColor(.gray)
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 150, height: 150)
+            } else {
+                // Placeholder image
+                Image(systemName: "photo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 150, height: 150)
+                    .frame(width: 120, height: 120)
+                    .foregroundColor(.gray)
+                    
             }
             
             expressView(productObject: productObject)
