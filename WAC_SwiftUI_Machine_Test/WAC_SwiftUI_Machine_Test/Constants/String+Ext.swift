@@ -12,6 +12,12 @@ extension String{
         static var loading = "Loading..."
         static var search = "Search."
         static var off = "OFF"
+        static var home = "Home"
+        static var categories = "Categories"
+        static var offers = "Offers"
+        static var cart = "Cart"
+        static var account = "Account"
+        
         
     }
     
@@ -26,6 +32,11 @@ extension String{
         static var barcode = "barcode.viewfinder"
         static var heart = "heart.fill"
         static var shippingbox = "shippingbox.fill"
+        static var home = "house.fill"
+        static var grid = "circle.grid.3x3.fill"
+        static var percent = "percent"
+        static var cart = "cart"
+        static var person = "person"
         
     }
 }
