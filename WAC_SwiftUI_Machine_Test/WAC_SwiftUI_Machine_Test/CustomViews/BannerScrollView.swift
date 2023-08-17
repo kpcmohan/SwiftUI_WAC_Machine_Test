@@ -16,6 +16,7 @@ struct BannerScrollView: View {
                 ForEach(viewModel?.bannerURLs ?? [], id: \.self) { bannerURL in
                     BannerView(bannerURL: bannerURL)
                         .frame(height: 180)
+                        .cornerRadius(12)
                         
                 }
             }

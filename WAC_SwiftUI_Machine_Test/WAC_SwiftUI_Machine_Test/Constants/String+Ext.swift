@@ -37,6 +37,7 @@ extension String{
         static var percent = "percent"
         static var cart = "cart"
         static var person = "person"
+        static var placeholder = "photo"
         
     }
 }

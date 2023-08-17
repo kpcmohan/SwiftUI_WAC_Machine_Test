@@ -44,10 +44,10 @@ struct ProductCell: View {
                 KFImage(url)
                         .placeholder {
                             // Placeholder image
-                            Image(systemName: "photo")
+                            Image(systemName: String.SystemImages.placeholder)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 120, height: 120)
+                                .frame(width: 110, height: 110)
                                 .foregroundColor(.gray)
                         }
                         .resizable()
@@ -55,7 +55,7 @@ struct ProductCell: View {
                         .frame(width: 150, height: 150)
             } else {
                 // Placeholder image
-                Image(systemName: "photo")
+                Image(systemName: String.SystemImages.placeholder)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 120)
@@ -116,7 +116,10 @@ struct expressView: View {
         HStack {
             if productObject.isExpress ?? false {
                 Image(systemName: String.SystemImages.shippingbox)
-                    .foregroundColor(.green)
+                    .foregroundColor(.black)
+                    .padding(.horizontal,4)
+                    .background(.yellow)
+                    
                     .padding(.top, 2)
             }
             Spacer()
