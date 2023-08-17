@@ -14,18 +14,18 @@ struct SearchBar: View {
     var body: some View {
         
         HStack {
-            Image(systemName: "magnifyingglass")
+            Image(systemName: String.SystemImages.magnifyingglass)
                 .foregroundColor(.gray)
                 .padding(.leading, 8)
             
-            TextField("Search.", text: $text)
+            TextField(String.Texts.search, text: $text)
                 .padding(8)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 
                 .padding(.horizontal, 4)
             
-            Image(systemName: "barcode.viewfinder")
+            Image(systemName: String.SystemImages.barcode)
                 .foregroundColor(.gray)
                 .padding(.trailing, 8)
         }

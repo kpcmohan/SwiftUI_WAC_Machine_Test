@@ -38,7 +38,7 @@ struct ProductCell: View {
             //Spacer()
             HStack{
                 if let offer = productObject.offer, offer > 0 {
-                    Text("\(offer)% OFF")
+                    Text("\(offer)% \(String.Texts.off)")
                         .padding(4)
                         .background(Color.red)
                         .font(.caption)
@@ -46,7 +46,7 @@ struct ProductCell: View {
                     
                 }
                 Spacer()
-                Image(systemName: "heart.fill") // Barcode scanner icon
+                Image(systemName: String.SystemImages.heart) // Barcode scanner icon
                     .foregroundColor(.gray)
                     .padding(.trailing, 8)
                 
@@ -60,7 +60,7 @@ struct ProductCell: View {
             Spacer()
             HStack{
                 if productObject.isExpress ?? false {
-                    Image(systemName: "shippingbox.fill")
+                    Image(systemName: String.SystemImages.shippingbox)
                         .foregroundColor(.green)
                         .padding(.top, 2)
                 }
