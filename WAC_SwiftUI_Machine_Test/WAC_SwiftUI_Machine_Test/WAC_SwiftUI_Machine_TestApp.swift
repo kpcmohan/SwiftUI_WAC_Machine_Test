@@ -11,7 +11,7 @@ import SwiftUI
 struct WAC_SwiftUI_Machine_TestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
